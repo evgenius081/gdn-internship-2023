@@ -1,0 +1,25 @@
+version: '1.0'
+services:
+  bank-app-backend:
+    container_name: bank-app-backend
+    build:
+      context: .
+      dockerfile: backend.dockerfile
+    ports:
+      - 80:80
+    networks: 
+      bank-app: 
+  bank-app-frontend:
+    container_name: bank-app-frontend
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
+    environment:
+      REACT_APP_ASP_LINK: http://localhost:80/api/bank
+    ports:
+      - 3000:3000
+    networks:
+      bank-app:
+networks:
+  bank-app:
+    driver: bridge

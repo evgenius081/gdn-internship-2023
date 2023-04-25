@@ -1,0 +1,685 @@
+{
+	"info": {
+		"_postman_id": "9618645d-510d-4910-ab8d-381b82920157",
+		"name": "Dynatrace task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26255082"
+	},
+	"item": [
+		{
+			"name": "Docker",
+			"item": [
+				{
+					"name": "Task1 correct",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/average/2023-04-21/AUD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"average",
+								"2023-04-21",
+								"AUD"
+							]
+						},
+						"description": "expected:\n\n200 response with content: 2.8094"
+					},
+					"response": []
+				},
+				{
+					"name": "Task1 no data",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/average/2023-04-22/AUD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"average",
+								"2023-04-22",
+								"AUD"
+							]
+						},
+						"description": "expected:\n\n404 response with content: Not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Task1 wrong currency code",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/average/2023-04-21/FOO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"average",
+								"2023-04-21",
+								"FOO"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Currency code is wrong"
+					},
+					"response": []
+				},
+				{
+					"name": "Task1 wrong date format",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/average/2023-21-04/AUD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"average",
+								"2023-21-04",
+								"AUD"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Date format is wrong"
+					},
+					"response": []
+				},
+				{
+					"name": "Task2 correct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/minmax/AUD/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"minmax",
+								"AUD",
+								"10"
+							]
+						},
+						"description": "expected:\n\n200 response with content: {\n\n\"item1\": 2.7762,\n\n\"item2\": 2.8445\n\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Task2 no data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/minmax/AED/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"minmax",
+								"AED",
+								"10"
+							]
+						},
+						"description": "expected:\n\n404 response with content: Not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Task2 wrong currency code",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:80/api/bank/minmax/FOO/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"minmax",
+								"FOO",
+								"10"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Currency code is wrong"
+					},
+					"response": []
+				},
+				{
+					"name": "Task2 wrong quot. number",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/minmax/AUD/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"minmax",
+								"AUD",
+								"1000"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Quotation number must not be in range 1 to 255."
+					},
+					"response": []
+				},
+				{
+					"name": "Task3 correct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/majordiff/AUD/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"majordiff",
+								"AUD",
+								"10"
+							]
+						},
+						"description": "expected:\n\n200 response with content: 0.0570"
+					},
+					"response": []
+				},
+				{
+					"name": "Task3 no data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/majordiff/AED/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"majordiff",
+								"AED",
+								"10"
+							]
+						},
+						"description": "expected:\n\n404 response with content: Not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Task3 wrong currency code",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/majordiff/FOO/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"majordiff",
+								"FOO",
+								"10"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Currency code is wrong"
+					},
+					"response": []
+				},
+				{
+					"name": "Task3 wrong quot. number",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/api/bank/majordiff/FOO/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"api",
+								"bank",
+								"majordiff",
+								"FOO",
+								"1000"
+							]
+						},
+						"description": "expected:\n\n400 response with content: Quotation number must not be in range 1 to 255."
+					},
+					"response": []
+				},
+				{
+					"name": "Not found test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:80/foo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"foo"
+							]
+						},
+						"description": "expected:\n\n404 response without content"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task1 correct",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/average/2023-04-21/AUD",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"average",
+						"2023-04-21",
+						"AUD"
+					]
+				},
+				"description": "expected:\n\n200 response with content: 2.8094"
+			},
+			"response": []
+		},
+		{
+			"name": "Task1 no data",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/average/2023-04-22/AUD",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"average",
+						"2023-04-22",
+						"AUD"
+					]
+				},
+				"description": "expected:\n\n404 response with content: Not found"
+			},
+			"response": []
+		},
+		{
+			"name": "Task1 wrong currency code",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/average/2023-04-21/FOO",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"average",
+						"2023-04-21",
+						"FOO"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Currency code is wrong"
+			},
+			"response": []
+		},
+		{
+			"name": "Task1 wrong date format",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/average/2023-21-04/AUD",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"average",
+						"2023-21-04",
+						"AUD"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Date format is wrong"
+			},
+			"response": []
+		},
+		{
+			"name": "Task2 correct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/minmax/AUD/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"minmax",
+						"AUD",
+						"10"
+					]
+				},
+				"description": "expected:\n\n200 response with content: {\n\n\"item1\": 2.7762,\n\n\"item2\": 2.8445\n\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Task2 no data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/minmax/AED/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"minmax",
+						"AED",
+						"10"
+					]
+				},
+				"description": "expected:\n\n404 response with content: Not found"
+			},
+			"response": []
+		},
+		{
+			"name": "Task2 wrong currency code",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/minmax/FOO/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"minmax",
+						"FOO",
+						"10"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Currency code is wrong"
+			},
+			"response": []
+		},
+		{
+			"name": "Task2 wrong quot. number",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/minmax/AUD/1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"minmax",
+						"AUD",
+						"1000"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Quotation number must not be in range 1 to 255."
+			},
+			"response": []
+		},
+		{
+			"name": "Task3 correct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/majordiff/AUD/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"majordiff",
+						"AUD",
+						"10"
+					]
+				},
+				"description": "expected:\n\n200 response with content: 0.0570"
+			},
+			"response": []
+		},
+		{
+			"name": "Task3 no data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/majordiff/AED/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"majordiff",
+						"AED",
+						"10"
+					]
+				},
+				"description": "expected:\n\n404 response with content: Not found"
+			},
+			"response": []
+		},
+		{
+			"name": "Task3 wrong currency code",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/majordiff/FOO/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"majordiff",
+						"FOO",
+						"10"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Currency code is wrong"
+			},
+			"response": []
+		},
+		{
+			"name": "Task3 wrong quot. number",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/api/bank/majordiff/FOO/1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"api",
+						"bank",
+						"majordiff",
+						"FOO",
+						"1000"
+					]
+				},
+				"description": "expected:\n\n400 response with content: Quotation number must not be in range 1 to 255."
+			},
+			"response": []
+		},
+		{
+			"name": "Not found test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7159/foo",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7159",
+					"path": [
+						"foo"
+					]
+				},
+				"description": "expected:\n\n404 response without content"
+			},
+			"response": []
+		}
+	]
+}
